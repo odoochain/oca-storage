@@ -177,7 +177,7 @@ class FSImage(FSFile):
     def _image_process(self, cache_value: FSImageValue) -> bytes | None:
         if self.readonly and not self.max_width and not self.max_height:
             # no need to process images for computed fields, or related fields
-            return cache_value.getvalue()
+            return cache_value
         return (
             cache_value.image_process(
                 size=(self.max_width, self.max_height),
@@ -204,10 +204,6 @@ class FSImage(FSFile):
         """Override to resize the related value before saving it on self."""
         if not value:
             return None
-        if self.readonly and not self.max_width and not self.max_height:
-            # no need to process images for computed fields, or related fields
-            # without max_width/max_height
-            return value
         value = super()._process_related(value)
         new_value = BytesIO(self._image_process(value))
         return FSImageValue(value=new_value, alt_text=value.alt_text, name=value.name)

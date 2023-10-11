@@ -55,13 +55,11 @@ export class FSImageField extends ImageField {
             }
             const model = this.props.record.resModel;
             const id = this.props.record.resId;
-            let base_url = this.props.value.url;
-            if (id !== undefined && id !== null && id !== false) {
-                const field = previewFieldName;
-                const filename = this.props.value.filename;
-                base_url = `/web/image/${model}/${id}/${field}/${filename}`;
-            }
-            return url(base_url, {unique: imageCacheKey(this.rawCacheKey)});
+            const field = previewFieldName;
+            const filename = this.props.value.filename;
+            return url(`/web/image/${model}/${id}/${field}/${filename}`, {
+                unique: imageCacheKey(this.rawCacheKey),
+            });
         }
         return placeholder;
     }

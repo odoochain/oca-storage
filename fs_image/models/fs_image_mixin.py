@@ -13,5 +13,5 @@ class FSImageMixin(models.AbstractModel):
     image = FSImage("Image")
     # resized fields stored (as attachment) for performance
     image_medium = FSImage(
-        "Image medium", related="image", max_width=128, max_height=128, store=True
+        "Image 128", related="image", max_width=128, max_height=128, store=True
     )

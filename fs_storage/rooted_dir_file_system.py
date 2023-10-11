@@ -26,10 +26,12 @@ class RootedDirFileSystem(DirFileSystem):
         # Since the path separator is not always the same on all systems,
         # we need to normalize the path separator.
         path_posix = os.path.normpath(make_path_posix(path, self.sep))
+        # print(path_posix)
         root_posix = os.path.normpath(make_path_posix(self.path))
+        # print(root_posix)
         if not path_posix.startswith(root_posix):
             raise PermissionError(
-                "Path %s is not a subpath of the root path %s" % (path, self.path)
+                "Path %s is not a subpath of the root path %s the root is %s " % (path, self.path, root_posix)
             )
         return path
 
